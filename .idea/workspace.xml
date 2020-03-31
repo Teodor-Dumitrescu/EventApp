@@ -3,6 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="45ef37a5-8ccc-4e2e-abc5-4d3e7059fdfa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Concert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Concert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Date.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Date.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/EventComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/EventComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Festival.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Festival.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Organizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Organizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Party.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Party.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Theater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Theater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PAO/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Ticket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,11 +49,11 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="PAO.Main" />
+      <option name="MAIN_CLASS_NAME" value="MDS.Main" />
       <module name="BuyYourTicket" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="PAO.*" />
+          <option name="PATTERN" value="MDS.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
