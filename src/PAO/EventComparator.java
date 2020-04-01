@@ -1,4 +1,4 @@
-package PAO;
+package MDS;
 
 import java.util.Comparator;
 

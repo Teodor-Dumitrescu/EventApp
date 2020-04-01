@@ -1,6 +1,4 @@
-package PAO;
-
-import java.util.Scanner;
+package MDS;
 
 public class Festival extends Event{
 
