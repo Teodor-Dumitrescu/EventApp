@@ -59,6 +59,7 @@ public class Application {
         }
     }
 
+    /*
     public void displayAllFestivals() {
         for(Event event : this.allEvents)
             if(event instanceof Festival)
@@ -82,6 +83,8 @@ public class Application {
             if (event instanceof Party)
                 event.showMainInfo();
     }
+    */
+
 
     public void displayEventsPriceLimit(double priceLimit) { // display all events with at least one ticket type price
 //        less than or equal to 'priceLimit'
