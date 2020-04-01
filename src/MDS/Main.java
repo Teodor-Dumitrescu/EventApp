@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-
+/*
         Application app = new Application();
 
         Organizer quantic = new Organizer("Quantic Pub");
@@ -19,6 +19,8 @@ public class Main {
 
         Ticket[] tickets = new Ticket[1];
         tickets[0] = new Ticket(100,800,"Normal","Tyr");
+
+
         Event tyr = new Concert("Tyr", new Location("Bucuresti", "Quantic"), quantic,
                 1, tickets, "Tyr", "Korpiklaani", "folk metal",
                 new Date(20,10,2020));
@@ -139,7 +141,9 @@ public class Main {
                 }
             }
 
+         }
+        */
         }
-        }
+
     }
 
