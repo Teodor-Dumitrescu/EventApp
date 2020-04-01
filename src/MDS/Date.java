@@ -1,4 +1,4 @@
-package PAO;
+package MDS;
 
 public class Date {
     private int day, month, year;

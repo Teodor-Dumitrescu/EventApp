@@ -1,4 +1,4 @@
-package PAO;
+package MDS;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -12,19 +12,6 @@ public abstract class Event {
     protected Ticket[] tickets;
     protected Integer nrTicketTypes;
     protected Date startDate;
-
-    /*@Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return Objects.equals(name, event.name);
-    }*/
 
     public Event(String name, Location location, Organizer organizer, int nrTicketTypes, Ticket[] tickets,
                  Date startDate) {
@@ -103,53 +90,6 @@ public abstract class Event {
                 this.name);
         return ticket;
     }
-//    @Override
-//    public int compareTo(Event event) {
-//        if(this.startDate.getDay() == event.startDate.getDay()
-//                && this.startDate.getMonth() == event.startDate.getMonth()
-//                && this.startDate.getYear() == event.startDate.getYear())
-//            return 0; // events have the same start date
-//        if(this.startDate.getYear() < event.startDate.getYear())
-//            return -1;
-//        if(this.startDate.getYear() == event.startDate.getYear()) {
-//            if(this.startDate.getMonth() < event.startDate.getMonth())
-//                return -1;
-//            if(this.startDate.getMonth() == event.startDate.getMonth()) {
-//                if(this.startDate.getDay() < event.startDate.getDay())
-//                    return -1;
-//            }
-//        } // current event starts earlier than 'event'
-//
-//        return 1; // 'event' starts earlier than current event
-//        /*if(this.startDate.getDay() < event.startDate.getDay())
-//            return -1;
-//        else if(this.startDate.getDay() == event.startDate.getDay())
-//            return 0;
-//        return 1;*/
-//    }
-
-
-    /*@Override
-    public int compareTo(Event event) {
-        if(this.startDate.getYear() < event.startDate.getYear())
-            return -1;
-        else if(this.startDate.getYear() > event.startDate.getYear())
-            return 1;
-        else {
-            if(this.startDate.getMonth() < event.startDate.getMonth())
-                return -1;
-            else if(this.startDate.getMonth() > event.startDate.getMonth())
-                return 1;
-            else {
-                return Integer.compare(this.startDate.getDay(), event.startDate.getDay());
-            }
-        }
-    }*/
-
-//    @Override
-//    public int compareTo(Event event) {
-//        return this.name.compareTo(event.name);
-//    }
 
     public void showMainInfo() {
         System.out.println("Name: " + this.name);

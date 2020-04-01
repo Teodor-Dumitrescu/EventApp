@@ -1,4 +1,4 @@
-package PAO;
+package MDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,8 +109,8 @@ public class Organizer {
 
             Date endDate = new Date(endDay, endMonth, endYear);
 
-            event = new Festival(eventName, location, this, nrTicketTypes, tickets, nrDays, startDate,
-                    endDate);
+            //event = new Festival(eventName, location, this, nrTicketTypes, tickets, nrDays, startDate,
+                    //endDate);
         }
 
         else { // anything else has a single date
@@ -138,15 +138,15 @@ public class Organizer {
                 System.out.println("Genre: ");
                 String genre = sc.nextLine();
 
-                event = new Concert(eventName, location, this, nrTicketTypes, tickets, mainAct, supportActs,
-                        genre, date);
+                //event = new Concert(eventName, location, this, nrTicketTypes, tickets, mainAct, supportActs,
+                        //genre, date);
             }
 
             else if(eventType == 3) { // Theatre
                 System.out.println("Actors: ");
                 String actors = sc.nextLine();
 
-                event = new Theater(eventName, location, this, nrTicketTypes, tickets, actors, date);
+                //event = new Theater(eventName, location, this, nrTicketTypes, tickets, actors, date);
             }
 
             else { // Party
@@ -164,12 +164,12 @@ public class Organizer {
                     sc.nextLine();
                 }
 
-                event = new Party(eventName, location, this, nrTicketTypes, tickets, requiredAge, date);
-                event.setDescription(description);
+                //event = new Party(eventName, location, this, nrTicketTypes, tickets, requiredAge, date);
+                //event.setDescription(description);
             }
         }
-        this.events.add(event);
-        this.application.addEvent(event);
+        //this.events.add(event);
+        //this.application.addEvent(event);
     }
 
     public void addEvent(Event event) {
