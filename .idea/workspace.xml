@@ -4,12 +4,9 @@
     <list default="true" id="0e7f727a-5400-4caa-ad4a-aae6315a9676" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BuyYourTicket/MDS/Cultural.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BuyYourTicket/MDS/Cultural.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BuyYourTicket/MDS/Music.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BuyYourTicket/MDS/Music.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BuyYourTicket/MDS/Sport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BuyYourTicket/MDS/Sport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MDS/Cultural.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Cultural.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MDS/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Music.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MDS/Sport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Sport.java" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/src/MDS/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MDS/Application.java" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +23,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">

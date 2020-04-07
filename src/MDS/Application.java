@@ -85,6 +85,23 @@ public class Application {
     }
     */
 
+    public void displayAllMusic() {
+        for(Event event : this.allEvents)
+            if (event instanceof Music)
+                event.showMainInfo();
+    }
+
+    public void displayAllCultural() {
+        for(Event event : this.allEvents)
+            if (event instanceof Cultural)
+                event.showMainInfo();
+    }
+
+    public void displayAllSport() {
+        for(Event event : this.allEvents)
+            if (event instanceof Sport)
+                event.showMainInfo();
+    }
 
     public void displayEventsPriceLimit(double priceLimit) { // display all events with at least one ticket type price
 //        less than or equal to 'priceLimit'
