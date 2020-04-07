@@ -1,8 +1,5 @@
 package MDS;
 
-import MDS.Event;
-import MDS.Location;
-
 import java.util.List;
 
 abstract class Cultural extends Event {
@@ -14,7 +11,20 @@ abstract class Cultural extends Event {
         this.guests = guests;
     }
 
+    public List<String> getGuests() {
+        return guests;
+    }
+
+    @Override
+    public void showMainInfo() {
+        super.showMainInfo();
+        System.out.println("Guests\n");
+        for(String guest: guests){
+            System.out.println(guest + "\n");
+        }
+
+    }
+
     public void showRestInfo(){}
-    protected void setTicketsNumber(){}
-    protected void setPrice(){}
+
 }
