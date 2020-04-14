@@ -1,9 +1,17 @@
 package MDS;
 
+import view.FormService;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+
+        FormService formService = new FormService();
+        formService.setGuestFrame();
+
 /*
         Application app = new Application();
 
