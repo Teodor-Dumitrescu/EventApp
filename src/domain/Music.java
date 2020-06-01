@@ -1,36 +1,65 @@
-package MDS;
+package domain;
 
-import java.util.List;
+import general.Event;
 
 public class Music extends Event {
 
+    private String musicGenre;
     private String formationName;
-    private List<String> members;
 
-    public Music(String name, Location location, Organizer organizer, int nrTicketTypes, Ticket[] tickets, Date startDate, String formationName, List<String> members) {
-        super(name, location, organizer, nrTicketTypes, tickets, startDate);
+    public Music(int eventId, int organizerId, int eventType, String name, float standardTicketPrice,
+                 int availableTicketsNumber, Location location, String musicGenre, String formationName) {
+        super(eventId, organizerId, eventType, name, standardTicketPrice, availableTicketsNumber, location);
+        this.musicGenre = musicGenre;
         this.formationName = formationName;
-        this.members = members;
+    }
+
+    public Music(int organizerId, int eventType, String name, float standardTicketPrice, int availableTicketsNumber,
+                 Location location, String musicGenre, String formationName) {
+        super(organizerId, eventType, name, standardTicketPrice, availableTicketsNumber, location);
+        this.musicGenre = musicGenre;
+        this.formationName = formationName;
+    }
+
+    public Music(String musicGenre, String formationName) {
+        this.musicGenre = musicGenre;
+        this.formationName = formationName;
+    }
+
+    public Music() {
+        super();
+    }
+
+    public String getMusicGenre() {
+        return musicGenre;
     }
 
     public String getFormationName() {
         return formationName;
     }
 
-    public List<String> getMembers() {
-        return members;
+    public void setMusicGenre(String musicGenre) {
+        this.musicGenre = musicGenre;
+    }
+
+    public void setFormationName(String formationName) {
+        this.formationName = formationName;
     }
 
     @Override
-    public void showMainInfo() {
-        super.showMainInfo();
-        System.out.println("Formation name: " + formationName + "\n");
-        System.out.println("Members:\n");
-        for(String member: members){
-            System.out.println(member + "\n");
-        }
-
+    public String presentationPrint(){
+        return super.presentationPrint() + "      Name: " + super.getName() +
+                "       Date: " + super.getLocation().getDate() + "     Price: $" + super.getStandardTicketPrice();
     }
 
-    public void showRestInfo(){}
+    @Override
+    public String toString() {
+        return super.toString() + "," + musicGenre + "," + formationName;
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.print("Music Event," + musicGenre + "," + formationName);
+    }
 }

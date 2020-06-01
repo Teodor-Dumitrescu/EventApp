@@ -1,30 +1,65 @@
-package MDS;
+package domain;
 
-import java.util.List;
+import general.Event;
 
-abstract class Cultural extends Event {
+public class Cultural extends Event {
 
-    private List<String> guests;
+    private String type;
+    private String guests;
 
-    public Cultural(String name, Location location, Organizer organizer, int nrTicketTypes, Ticket[] tickets, Date startDate, List<String> guests) {
-        super(name, location, organizer, nrTicketTypes, tickets, startDate);
+    public Cultural(int eventId, int organizerId, int eventType, String name, float standardTicketPrice,
+                    int availableTicketsNumber, Location location, String type, String guests) {
+        super(eventId, organizerId, eventType, name, standardTicketPrice, availableTicketsNumber, location);
+        this.type = type;
         this.guests = guests;
     }
 
-    public List<String> getGuests() {
+    public Cultural(int organizerId, int eventType, String name, float standardTicketPrice, int availableTicketsNumber,
+                    Location location, String type, String guests) {
+        super(organizerId, eventType, name, standardTicketPrice, availableTicketsNumber, location);
+        this.type = type;
+        this.guests = guests;
+    }
+
+    public Cultural(String type, String guests) {
+        this.type = type;
+        this.guests = guests;
+    }
+
+    public Cultural() {
+        super();
+    }
+
+    public String getGuests() {
         return guests;
     }
 
-    @Override
-    public void showMainInfo() {
-        super.showMainInfo();
-        System.out.println("Guests\n");
-        for(String guest: guests){
-            System.out.println(guest + "\n");
-        }
-
+    public String getType() {
+        return type;
     }
 
-    public void showRestInfo(){}
+    public void setType(String type) {
+        this.type = type;
+    }
 
+    public void setGuests(String guests) {
+        this.guests = guests;
+    }
+
+    @Override
+    public String presentationPrint(){
+        return super.presentationPrint() + "      Name: " + super.getName() +
+                "       Date: " + super.getLocation().getDate() + "     Price: $" + super.getStandardTicketPrice();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "," + type + "," + guests;
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.print("Cultural Event," + type + "," + guests);
+    }
 }

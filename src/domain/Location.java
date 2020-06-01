@@ -1,19 +1,34 @@
-package MDS;
+package domain;
 
 public class Location {
-    private String city;
-    private String locationName;
 
-    public String getCity() {
-        return city;
+    private String date;
+    private int addressId; //store foreign key for event
+
+    public Location(String date, int addressId) {
+        this.date = date;
+        this.addressId = addressId;
     }
 
-    public String getLocationName() {
-        return locationName;
+    public String getDate() {
+        return date;
     }
 
-    public Location(String city, String locationName) {
-        this.city = city;
-        this.locationName = locationName;
+    public int getAddressId() {
+        return addressId;
     }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    @Override
+    public String toString() {
+        return date + "," + addressId;
+    }
+
 }

@@ -1,36 +1,116 @@
-package MDS;
+package domain;
+
 
 public class Ticket {
 
-    private String eventName;
-    private double price;
-    private int count;
-    private String type;
+    private int ticketId; //primary key
+    private int clientId; //foreign key
+    private int organizerId; //foreign key
+    private int eventId;
+    private int eventType;
+    private String ticketIdentifier; //unique code for every ticket
+    private String seat;
+    protected float price;
 
-    public Ticket(double price, int count, String type, String eventName) {
+    public Ticket(int ticketId, int clientId, int organizerId, int eventId, int eventType, String ticketIdentifier,
+                  String seat, float price) {
+        this.ticketId = ticketId;
+        this.clientId = clientId;
+        this.organizerId = organizerId;
+        this.eventId = eventId;
+        this.eventType = eventType;
+        this.ticketIdentifier = ticketIdentifier;
+        this.seat = seat;
         this.price = price;
-        this.count = count;
-        this.type = type;
-        this.eventName = eventName;
     }
 
-    public double getPrice() {
+    public Ticket(int clientId, int organizerId, int eventId, int eventType, String ticketIdentifier, String seat,
+                  float price) {
+        this.clientId = clientId;
+        this.organizerId = organizerId;
+        this.eventId = eventId;
+        this.eventType = eventType;
+        this.ticketIdentifier = ticketIdentifier;
+        this.seat = seat;
+        this.price = price;
+    }
+
+    public Ticket() {
+        ticketIdentifier = "Null ticket";
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public int getOrganizerId() {
+        return organizerId;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public int getTicketId() {
+        return ticketId;
+    }
+
+    public int getEventType() {
+        return eventType;
+    }
+
+    public String getTicketIdentifier() {
+        return ticketIdentifier;
+    }
+
+    public String getSeat() {
+        return seat;
+    }
+
+    public float getPrice() {
         return price;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
-    public String getEventName() {
-        return eventName;
+    public void setOrganizerId(int organizerId) {
+        this.organizerId = organizerId;
     }
 
-    public int getCount() {
-        return count;
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 
-    public String getType() {
-        return type;
+    public String presentationPrint(){
+        String tmp =  "TicketId #" + ticketId + "        Ticket identifier: " + ticketIdentifier +
+                "           Price: " + price + "        Event: ";
+
+        switch (eventType){
+            case 1:
+                tmp += " Music";
+                break;
+            case 2:
+                tmp += " Sport";
+                break;
+            case 3:
+                tmp += " Cultural";
+                break;
+        }
+
+        return tmp;
     }
+
+    @Override
+    public String toString() {
+        return ticketId + "," + clientId + "," + organizerId + "," + eventId + "," + eventType +  "," +
+                ticketIdentifier + "," +
+                seat + "," + price + "#";
+    }
+
+    public void print(){
+        System.out.print(ticketIdentifier + "," + seat + ",");
+    }
+
 }

@@ -1,33 +1,65 @@
-package MDS;
+package domain;
 
-import java.util.List;
+import general.Event;
 
 public class Sport extends Event {
 
-    private String homeTeam;
-    private String guestTeam;
+    private String home;
+    private String guest;
 
-    public Sport(String name, Location location, Organizer organizer, int nrTicketTypes, Ticket[] tickets, Date startDate, String homeTeam, String guestTeam) {
-        super(name, location, organizer, nrTicketTypes, tickets, startDate);
-        this.homeTeam = homeTeam;
-        this.guestTeam = guestTeam;
+    public Sport(int eventId, int organizerId, int eventType, String name, float standardTicketPrice,
+                 int availableTicketsNumber, Location location, String home, String guest) {
+        super(eventId, organizerId, eventType, name, standardTicketPrice, availableTicketsNumber, location);
+        this.home = home;
+        this.guest = guest;
     }
 
-    public String getHomeTeam() {
-        return homeTeam;
+    public Sport(int organizerId, int eventType, String name, float standardTicketPrice, int availableTicketsNumber,
+                 Location location, String home, String guest) {
+        super(organizerId, eventType, name, standardTicketPrice, availableTicketsNumber, location);
+        this.home = home;
+        this.guest = guest;
     }
 
-    public String getGuestTeam() {
-        return guestTeam;
+    public Sport(String home, String guest) {
+        this.home = home;
+        this.guest = guest;
+    }
+
+    public Sport() {
+        super();
+    }
+
+    public String getHome() {
+        return home;
+    }
+
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
     }
 
     @Override
-    public void showMainInfo() {
-        super.showMainInfo();
-        System.out.println(homeTeam + " vs " + guestTeam);
-
-
+    public String presentationPrint(){
+        return super.presentationPrint() + "      Name: " + super.getName() +
+                "       Date: " + super.getLocation().getDate() + "     Price: $" + super.getStandardTicketPrice();
     }
-    public void showRestInfo(){}
 
+    @Override
+    public String toString() {
+        return super.toString() + "," + home + "," + guest;
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.print("Sport Event," + home + " vs " + guest);
+    }
 }
