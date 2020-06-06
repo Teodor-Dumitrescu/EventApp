@@ -81,6 +81,11 @@ abstract public class Event {
         this.availableTicketsNumber = availableTicketsNumber;
     }
 
+    /**
+     * Show the important elements in the main event show zone in GUI interface
+     *
+     * @return string
+     */
     public String presentationPrint(){
         return "EventId: #" + eventId + "#" + eventType;
     }

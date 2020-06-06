@@ -10,13 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Operates different types of queries in database.
+ */
 public class TicketRepository implements DatabaseManipulation<Ticket> {
 
     private static TicketRepository ticketRepositoryInstance = null;
 
-    private TicketRepository() {
-
-    }
+    private TicketRepository() {}
 
     public static TicketRepository getTicketRepositoryInstance() {
 
@@ -26,6 +27,15 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
         return ticketRepositoryInstance;
     }
 
+
+    /**
+     * Used to check if a ticket exists using the ticket identifier.
+     * Because ticketIdentifier is random generated and because this must be unique,
+     * every time when a ticket is created is generated a unique ticket identifier by checking that a ticket with this
+     * ticketIdentifier does not exist in database.
+     *
+     * @return boolean
+     */
     public boolean existTicket(String ticketIdentifier){
 
         String query = "select * from tickets where ticket_identifier = '" + ticketIdentifier + "'";
@@ -39,6 +49,13 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
         }
     }
 
+
+    /**
+     * Used to see what tickets the organizer session(identified by organizer id) sold.
+     * Is used in GUI when a organizer click on view sold ticket button.
+     *
+     * @return list of tickets
+     */
     public List<Ticket> getOrganizerSoldTickets(int organizerId){
 
         String query = "select * from tickets where organizer_id = " + organizerId;
@@ -46,6 +63,13 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
         return getSpecificData(query);
     }
 
+
+    /**
+     * Used to see what tickets the client session(identified by client id) bought.
+     * Is used in GUI when a client click on view ticket button.
+     *
+     * @return list of tickets
+     */
     public List<Ticket> getClientTickets(int clientId){
 
         String query = "select * from tickets where client_id = " + clientId;
@@ -54,13 +78,12 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
     }
 
 
-    public List<Ticket> getEventTickets(int eventId, int eventType) {
-
-        String query = "select * from tickets where event_id = " + eventId + " and event_type = " + eventType;
-
-        return getSpecificData(query);
-    }
-
+    /**
+     * A function which can return tickets for multiple types of query selections.
+     * Avoid code duplicates.
+     *
+     * @return list of tickets
+     */
     private List<Ticket> getSpecificData(String query){
 
         List<Ticket> ticketList = new ArrayList<>();
@@ -74,24 +97,50 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
         return ticketList;
     }
 
+
+    /**
+     * Make a list and return all tickets from database if necessary.
+     *
+     * @return List
+     */
     @Override
     public List<Ticket> getData() {
         return getSpecificData("select * from tickets");
     }
 
+
+    /**
+     * Return a single ticket from database when the selector is ticket identifier.
+     *
+     * @return ticket
+     */
     public Ticket get(String ticketIdentifier){
         String query = "select * from tickets where ticket_identifier = '" + ticketIdentifier + "'";
         System.out.println(query);
         return parseElement(DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query));
     }
 
+
+    /**
+     * Return a single ticket from database when the selector is primary key.
+     *
+     * @return ticket
+     */
     @Override
     public Ticket get(int index){
-
         String query = "select * from tickets where ticket_id = " + index;
         return parseElement(DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query));
     }
 
+
+    /**
+     * Function used when must be created a new object from database data.
+     * The function receive a row(resultSet) and split this one into columns resulting
+     * the data for a new ticket object.
+     *
+     * @param resultSet a row with data which will be split into columns
+     * @return new ticket object
+     */
     @Override
     public Ticket parseElement(ResultSet resultSet){
 
@@ -121,6 +170,12 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
         }
     }
 
+
+    /**
+     * Main function for inserting new ticket into database.
+     *
+     * @param ticket object which will be inserted into database
+     */
     @Override
     public void insert(Ticket ticket) {
 
@@ -147,6 +202,12 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
 
     }
 
+
+    /**
+     * Main function for updating existing ticket from database.
+     *
+     * @param ticket object which will be updated
+     */
     @Override
     public void update(Ticket ticket){
 
@@ -175,9 +236,14 @@ public class TicketRepository implements DatabaseManipulation<Ticket> {
 
     }
 
+
+    /**
+     * Main function for deleting existing ticket from database.
+     *
+     * @param ticket object which will be deleted from database
+     */
     @Override
     public void delete(Ticket ticket){
-        //delete ticket value
         String query = "delete from tickets where ticket_id =  " + ticket.getTicketId();
         DatabaseConnection.getDatabaseConnectionInstance().update(query);
     }

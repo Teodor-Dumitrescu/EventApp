@@ -9,13 +9,20 @@ public class DatabaseConnection {
     private static int connexionAttempts;
     private static final int maximConnexionAttempts = 5;
 
+    /**
+     * Main function where the connexion is made.
+     * If connexion is not made after a fixed number of attempts program will exit.
+     * Every time when connexion is successfully the connexion attempts reset to 0 to be prepared
+     * for next time when is a problem with connexion.
+     */
     private DatabaseConnection() {
 
-        int delay = 5000;
-
+        //try for a limited time to make or remake the connexion
         while(connexionAttempts <= maximConnexionAttempts) {
 
             connexionAttempts += 1;
+            int delay = 5000;
+
             System.out.println();
             System.out.println();
             System.out.println("------------------------------");
@@ -51,7 +58,7 @@ public class DatabaseConnection {
                 System.out.println("------------------------------------------------");
                 System.out.println("SQLException: " + ex.getMessage());
 
-                if (connexionAttempts == maximConnexionAttempts) {
+                if (connexionAttempts >= maximConnexionAttempts) {
                     System.out.println();
                     System.out.println("=============================================================");
                     System.out.println("ERROR: [Database unreachable --> too many connexion attempts]");
@@ -75,6 +82,13 @@ public class DatabaseConnection {
         }
     }
 
+
+    /**
+     * Check if database is reachable by sending a test query to be executed.
+     * If results an error when query is executed means that the database is unreachable.
+     *
+     * @return boolean
+     */
     private static boolean isConnexion() {
 
         try {
@@ -94,6 +108,14 @@ public class DatabaseConnection {
         return true;
     }
 
+
+    /**
+     * Always database should be reachable, beacause program always get data from database (to have recent data).
+     * So every time when an update, add or delete operation is made first must be checked is exist a valid connexion.
+     * If does not exist a valid connexion must be made.
+     *
+     * @return instance for connection
+     */
     public static DatabaseConnection getDatabaseConnectionInstance()  {
 
         if(databaseConnectionInstance == null || !isConnexion()){
@@ -108,6 +130,15 @@ public class DatabaseConnection {
         return connection;
     }
 
+
+    /**
+     * This function is a basic function for making GET requests in database. All repository will call
+     * this function to get their results.
+     * By GET requests I understand a request which will return some data.
+     *
+     * @param query - is the query which will be executed by database
+     * @return result from query
+     */
     public ResultSet makeQuery(String query){
 
         ResultSet resultSet;
@@ -127,6 +158,15 @@ public class DatabaseConnection {
     }
 
 
+    /**
+     * This function is a basic function for making UPDATE requests in database. All repository will call
+     * this function to make their updates.
+     * By UPDATE requests I understand a request like add, update or delete something from database.
+     *
+     * @param statement - is the statement which is made in every repository. This is the query which will be executed
+     *                  by database
+     * @return void
+     */
     public void update(PreparedStatement statement){
 
         try {
@@ -142,6 +182,15 @@ public class DatabaseConnection {
         }
     }
 
+
+    /**
+     * This function is a basic function for making UPDATE requests in database. All repository will call
+     * this function to make their updates.
+     * By UPDATE requests I understand a request like add, update or delete something from database.
+     *
+     * @param query - This is the query which will be executed by database
+     * @return void
+     */
     public void update(String query){
 
         try {

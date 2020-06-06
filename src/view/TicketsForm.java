@@ -162,7 +162,7 @@ public class TicketsForm extends JFrame {
                         searchString += organizer.getName();
                     }
 
-                    if(searchString.contains(searchValue)){
+                    if(searchString.toLowerCase().contains(searchValue)){
                         tmpLoadModel.addElement(ticketList.getModel().getElementAt(idx).toString());
                     }
                 }
@@ -184,6 +184,14 @@ public class TicketsForm extends JFrame {
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
                 setTicketLabels();
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
             }
         });
     }

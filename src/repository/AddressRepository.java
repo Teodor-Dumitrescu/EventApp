@@ -10,12 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Operates different types of queries in database.
+ */
 public class AddressRepository implements DatabaseManipulation<Address> {
 
     private static AddressRepository addressRepositoryInstance = null;
 
-    private AddressRepository() {
-    }
+    private AddressRepository() {}
 
     public static AddressRepository getAddressRepositoryInstance() {
 
@@ -25,6 +27,11 @@ public class AddressRepository implements DatabaseManipulation<Address> {
         return addressRepositoryInstance;
     }
 
+    /**
+     * Make a list and return all addresses from database if necessary.
+     *
+     * @return List
+     */
     @Override
     public List<Address> getData() {
 
@@ -39,6 +46,12 @@ public class AddressRepository implements DatabaseManipulation<Address> {
         return  addressList;
     }
 
+
+    /**
+     * Return one single address from database when the selector is primary key.
+     *
+     * @return address
+     */
     @Override
     public Address get(int index){
 
@@ -46,6 +59,12 @@ public class AddressRepository implements DatabaseManipulation<Address> {
         return parseElement(DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query));
     }
 
+
+    /**
+     * Return the index for last address inserted into database.
+     *
+     * @return List
+     */
     public int getLastIndex(){
 
         try {
@@ -65,6 +84,15 @@ public class AddressRepository implements DatabaseManipulation<Address> {
         }
     }
 
+
+    /**
+     * Function used when must be created a new object from database data.
+     * The function receive a row(resultSet) and split this one into columns resulting
+     * the data for a new address object.
+     *
+     * @param resultSet a row with data which will be split into columns
+     * @return new address object
+     */
     @Override
     public Address parseElement(ResultSet resultSet){
 
@@ -91,6 +119,12 @@ public class AddressRepository implements DatabaseManipulation<Address> {
         }
     }
 
+
+    /**
+     * Main function for inserting new addresses into database.
+     *
+     * @param address object which will be inserted into database
+     */
     @Override
     public void insert(Address address) {
 
@@ -113,6 +147,12 @@ public class AddressRepository implements DatabaseManipulation<Address> {
 
     }
 
+
+    /**
+     * Main function for updating existing address from database.
+     *
+     * @param address object which will be updated
+     */
     @Override
     public void update(Address address){
 
@@ -137,6 +177,12 @@ public class AddressRepository implements DatabaseManipulation<Address> {
 
     }
 
+
+    /**
+     * Main function for deleting existing address from database.
+     *
+     * @param address object which will be deleted from database
+     */
     @Override
     public void delete(Address address){
         String query = "delete from addresses where address_id =  " + address.getAddressId();

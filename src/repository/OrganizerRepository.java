@@ -10,13 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Operates different types of queries in database.
+ */
 public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
     private static OrganizerRepository organizerRepositoryInstance = null;
 
-    private OrganizerRepository() {
-
-    }
+    private OrganizerRepository() {}
 
     public static OrganizerRepository getOrganizerRepositoryInstance() {
 
@@ -26,6 +27,14 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
         return organizerRepositoryInstance;
     }
 
+
+    /**
+     * Used when a new organizer account is created or a login is made to check
+     * if the organizer exists in database or not. The search is made by username, because
+     * username must be unique for every organizer.
+     *
+     * @return boolean
+     */
     public boolean existOrganizer(String username) {
 
         String query = "select * from organizers where username = '" + username + "'";
@@ -41,6 +50,13 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
     }
 
 
+    /**
+     * Used to return a session organizer when a login is made in GUI interface.
+     *
+     * @param username organizer username
+     * @param password organizer password
+     * @return a session organizer
+     */
     public Organizer login(String username, String password){
 
         String query = "select * from organizers where username = '" + username + "' and password = '"
@@ -49,6 +65,12 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
         return parseElement(DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query));
     }
 
+
+    /**
+     * Make a list and return all organizers from database if necessary.
+     *
+     * @return List
+     */
     @Override
     public List<Organizer> getData() {
 
@@ -63,6 +85,12 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
         return organizerList;
     }
 
+
+    /**
+     * Return a single organizer from database when the selector is primary key.
+     *
+     * @return organizer
+     */
     @Override
     public Organizer get(int index){
 
@@ -70,6 +98,15 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
         return parseElement(DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query));
     }
 
+
+    /**
+     * Function used when must be created a new object from database data.
+     * The function receive a row(resultSet) and split this one into columns resulting
+     * the data for a new organizer object.
+     *
+     * @param resultSet a row with data which will be split into columns
+     * @return new organizer object
+     */
     @Override
     public Organizer parseElement(ResultSet resultSet){
 
@@ -96,6 +133,12 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
         }
     }
 
+
+    /**
+     * Main function for inserting new organizer into database.
+     *
+     * @param organizer object which will be inserted into database
+     */
     @Override
     public void insert(Organizer organizer) {
 
@@ -119,6 +162,12 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
     }
 
+
+    /**
+     * Main function for updating existing organizer from database.
+     *
+     * @param organizer object which will be updated
+     */
     @Override
     public void update(Organizer organizer){
 
@@ -142,9 +191,14 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
     }
 
+
+    /**
+     * Main function for deleting existing organizer from database.
+     *
+     * @param organizer object which will be deleted from database
+     */
     @Override
     public void delete(Organizer organizer){
-        //delete organizer value
         String query = "delete from organizers where organizer_id =  " + organizer.getOrganizerId();
         DatabaseConnection.getDatabaseConnectionInstance().update(query);
     }

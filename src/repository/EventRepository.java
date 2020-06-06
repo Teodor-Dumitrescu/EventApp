@@ -14,13 +14,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Operates different types of queries in database.
+ */
 public class EventRepository implements DatabaseManipulation<Event> {
 
     private static EventRepository eventRepositoryInstance = null;
     private String[] EVENTS_TABLES = {"music_events","sport_events","cultural_events"};
 
-    private EventRepository(){
-    }
+    private EventRepository(){}
 
     public static EventRepository getEventRepositoryInstance() {
 
@@ -30,6 +32,13 @@ public class EventRepository implements DatabaseManipulation<Event> {
         return eventRepositoryInstance;
     }
 
+
+    /**
+     * Make a list and return all events for one organizer if necessary.
+     * This helps when a organizer is logged in because he must see only his events.
+     *
+     * @return List
+     */
     public List<Event> getOrganizerEvents(int organizerId) {
 
         List<Event> eventList = new ArrayList<>();
@@ -55,6 +64,12 @@ public class EventRepository implements DatabaseManipulation<Event> {
         return eventList;
     }
 
+
+    /**
+     * Make a list and return all events type from database if necessary.
+     *
+     * @return List
+     */
     @Override
     public List<Event> getData() {
 
@@ -68,6 +83,13 @@ public class EventRepository implements DatabaseManipulation<Event> {
         return eventList;
     }
 
+
+    /**
+     * Make a list and return all events of a certain type. Can return all music events, all cultural events
+     * or all sport events if necessary.
+     *
+     * @return List
+     */
     @Override
     public List<Event> getData(int type) {
 
@@ -98,6 +120,14 @@ public class EventRepository implements DatabaseManipulation<Event> {
         return eventList;
     }
 
+
+    /**
+     * Get a specific event from database identified in a unique mode by id and table type.
+     *
+     * @param index primary key
+     * @param type table for events (1 for music, 2 for sport , 3 for cultural)
+     * @return event
+     */
     @Override
     public Event get(int index, int type){
 
@@ -120,6 +150,15 @@ public class EventRepository implements DatabaseManipulation<Event> {
         return null;
     }
 
+
+    /**
+     *  Function used when must be created a new object from database data.
+     * The function receive a row(resultSet) and split this one into columns resulting
+     * the data for a new event object.
+     *
+     * @param resultSet a row with data which will be split into columns
+     * @return new event object
+     */
     @Override
     public Event parseElement(ResultSet resultSet){
 
@@ -174,6 +213,12 @@ public class EventRepository implements DatabaseManipulation<Event> {
         }
     }
 
+
+    /**
+     * Avoid duplication of code by creating a generic prepared statement for basic event
+     * (meaning abstract class event).
+     *
+     */
     private void modifyBasicEvent(Event event, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setString(1, String.valueOf(event.getOrganizerId()));
         preparedStatement.setString(2, String.valueOf(event.getLocation().getAddressId()));
@@ -184,6 +229,12 @@ public class EventRepository implements DatabaseManipulation<Event> {
         preparedStatement.setString(7, String.valueOf(event.getAvailableTicketsNumber()));
     }
 
+
+    /**
+     * Main function for inserting new event into database.
+     *
+     * @param event object which will be inserted into database
+     */
     @Override
     public void insert(Event event){
 
@@ -265,13 +316,11 @@ public class EventRepository implements DatabaseManipulation<Event> {
     }
 
 
-    private String getBasicUpdateQuery(Event event){
-        return " set " + "organizer_id = " + event.getOrganizerId() + ",address_id = " + event.getLocation().getAddressId() +
-                ",event_type = " + event.getEventType() + ",name = '" + event.getName() + "',standard_price = "
-                + event.getStandardTicketPrice() + ", date = '"+ event.getLocation().getDate() + "', available_tickets_number = " +
-                event.getAvailableTicketsNumber();
-    }
-
+    /**
+     * Main function for updating existing event from database.
+     *
+     * @param event object which will be updated
+     */
     @Override
     public void update(Event event){
 
@@ -326,7 +375,7 @@ public class EventRepository implements DatabaseManipulation<Event> {
 
         if(event.getEventType() == 3){ //update in cultural events table
 
-            String updateStatement = String.format("update " + EVENTS_TABLES[1] + basicEventUpdateQuery +
+            String updateStatement = String.format("update " + EVENTS_TABLES[2] + basicEventUpdateQuery +
                     ", type = ?, guests = ? where event_id = ?");
 
             try (PreparedStatement preparedStatement = DatabaseConnection.getDatabaseConnectionInstance().getConnection().
@@ -351,9 +400,14 @@ public class EventRepository implements DatabaseManipulation<Event> {
 
     }
 
+
+    /**
+     *  Main function for deleting existing event from database.
+     *
+     * @param event object which will be deleted from database
+     */
     @Override
     public void delete(Event event){
-        //delete event value
 
         if(event.getEventType() == 1){ //delete in music events table
             String query = "delete from " + EVENTS_TABLES[0] + " where event_id =  " + event.getEventId();

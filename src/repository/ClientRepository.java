@@ -10,12 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Operates different types of queries in database.
+ */
 public class ClientRepository implements DatabaseManipulation<Client> {
 
     private static ClientRepository clientRepositoryInstance = null;
 
-    private ClientRepository() {
-    }
+    private ClientRepository() {}
 
     public static ClientRepository getClientRepositoryInstance() {
 
@@ -25,6 +27,14 @@ public class ClientRepository implements DatabaseManipulation<Client> {
         return clientRepositoryInstance;
     }
 
+
+    /**
+     * Used when a new client account is created or a login is made to check
+     * if the client exists in database or not. The search is made by username, because
+     * username must be unique for every client.
+     *
+     * @return boolean
+     */
     public boolean existClient(String username) {
 
         String query = "select * from clients where username = '" + username + "'";
@@ -39,21 +49,14 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
     }
 
-    public boolean existClient(int clientId) {
 
-        String query = "select * from clients where client_id = " + clientId;
-
-        try {
-            return DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query).next();
-        } catch (SQLException ex) {
-            System.out.println("Exception in existClient by id in client Repository " + ex.getMessage());
-            System.out.println("SQLException: " + ex.getMessage());
-            return false;
-        }
-
-    }
-
-
+    /**
+     * Used to return a session client when a login is made in GUI interface.
+     *
+     * @param username client username
+     * @param password client password
+     * @return a session client
+     */
     public Client login(String username, String password){
 
         String query = "select * from clients where username = '" + username + "' and password = '"
@@ -62,6 +65,12 @@ public class ClientRepository implements DatabaseManipulation<Client> {
         return parseElement(DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query));
     }
 
+
+    /**
+     * Make a list and return all clients from database if necessary.
+     *
+     * @return List
+     */
     @Override
     public List<Client> getData() {
 
@@ -76,6 +85,12 @@ public class ClientRepository implements DatabaseManipulation<Client> {
         return clientList;
     }
 
+
+    /**
+     *  Return a single client from database when the selector is primary key.
+     *
+     * @return client
+     */
     @Override
     public Client get(int index){
 
@@ -83,6 +98,15 @@ public class ClientRepository implements DatabaseManipulation<Client> {
         return parseElement(DatabaseConnection.getDatabaseConnectionInstance().makeQuery(query));
     }
 
+
+    /**
+     * Function used when must be created a new object from database data.
+     * The function receive a row(resultSet) and split this one into columns resulting
+     * the data for a new client object.
+     *
+     * @param resultSet a row with data which will be split into columns
+     * @return new client object
+     */
     @Override
     public Client parseElement(ResultSet resultSet){
 
@@ -111,6 +135,12 @@ public class ClientRepository implements DatabaseManipulation<Client> {
         }
     }
 
+
+    /**
+     *  Main function for inserting new client into database.
+     *
+     * @param client object which will be inserted into database
+     */
     @Override
     public void insert(Client client) {
 
@@ -136,6 +166,12 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
     }
 
+
+    /**
+     * Main function for updating existing client from database.
+     *
+     * @param client object which will be updated
+     */
     @Override
     public void update(Client client){
 
@@ -161,6 +197,12 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
     }
 
+
+    /**
+     * Main function for deleting existing client from database.
+     *
+     * @param client object which will be deleted from database
+     */
     @Override
     public void delete(Client client){
         String query = "delete from clients where client_id =  " + client.getClientId();
