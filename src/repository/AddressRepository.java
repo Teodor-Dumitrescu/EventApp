@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Operates different types of queries in database.
+ * Operates different types of queries in the database.
  */
 public class AddressRepository implements DatabaseManipulation<Address> {
 
@@ -28,7 +28,7 @@ public class AddressRepository implements DatabaseManipulation<Address> {
     }
 
     /**
-     * Make a list and return all addresses from database if necessary.
+     * Make a list and return all addresses from the database if necessary.
      *
      * @return List
      */
@@ -48,7 +48,7 @@ public class AddressRepository implements DatabaseManipulation<Address> {
 
 
     /**
-     * Return one single address from database when the selector is primary key.
+     * Return one single address from the database whenthe selector is the primary key.
      *
      * @return address
      */
@@ -86,8 +86,8 @@ public class AddressRepository implements DatabaseManipulation<Address> {
 
 
     /**
-     * Function used when must be created a new object from database data.
-     * The function receive a row(resultSet) and split this one into columns resulting
+     * Function used to create a new object from database data.
+     * The function receives a row(resultSet) and splits this one into columns resulting
      * the data for a new address object.
      *
      * @param resultSet a row with data which will be split into columns

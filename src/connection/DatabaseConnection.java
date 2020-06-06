@@ -10,14 +10,14 @@ public class DatabaseConnection {
     private static final int maximConnexionAttempts = 5;
 
     /**
-     * Main function where the connexion is made.
-     * If connexion is not made after a fixed number of attempts program will exit.
-     * Every time when connexion is successfully the connexion attempts reset to 0 to be prepared
-     * for next time when is a problem with connexion.
+     * Main function where the connection is made.
+     * If connection is not made after a fixed number of attempts the program will exit.
+     * Every time when the connection is successful, the connection attempts reset to 0 to be prepared
+     * for the next time when there is a problem with the connection.
      */
     private DatabaseConnection() {
 
-        //try for a limited time to make or remake the connexion
+        //try for a limited time to make or remake the connection
         while(connexionAttempts <= maximConnexionAttempts) {
 
             connexionAttempts += 1;
@@ -44,7 +44,7 @@ public class DatabaseConnection {
                 connection = DriverManager.getConnection(databaseUrl, databaseUsername, databasePassword);
 
                 System.out.println("---------------------------------------------");
-                System.out.println("SUCCESS [connexion with database was created]");
+                System.out.println("SUCCESS [connection with database was created]");
                 System.out.println("---------------------------------------------");
 
                 connexionAttempts = 0;
@@ -54,14 +54,14 @@ public class DatabaseConnection {
             } catch (SQLException | ClassNotFoundException ex) {
                 System.out.println();
                 System.out.println("================================================");
-                System.out.println("ERROR: [connexion with database was not created]");
+                System.out.println("ERROR: [connection with database was not created]");
                 System.out.println("------------------------------------------------");
                 System.out.println("SQLException: " + ex.getMessage());
 
                 if (connexionAttempts >= maximConnexionAttempts) {
                     System.out.println();
                     System.out.println("=============================================================");
-                    System.out.println("ERROR: [Database unreachable --> too many connexion attempts]");
+                    System.out.println("ERROR: [Database unreachable --> too many connection attempts]");
                     System.out.println("=============================================================");
                     System.exit(-1);
                 }
@@ -84,8 +84,8 @@ public class DatabaseConnection {
 
 
     /**
-     * Check if database is reachable by sending a test query to be executed.
-     * If results an error when query is executed means that the database is unreachable.
+     * Check if the database is reachable by sending a test query to be executed.
+     * If the result of the query is an error, it means that the database is unreachable.
      *
      * @return boolean
      */
@@ -110,9 +110,10 @@ public class DatabaseConnection {
 
 
     /**
-     * Always database should be reachable, beacause program always get data from database (to have recent data).
-     * So every time when an update, add or delete operation is made first must be checked is exist a valid connexion.
-     * If does not exist a valid connexion must be made.
+     * The database should always be reachable, beacause the program always gets data from the database
+     * (to have recent data).
+     * So every time an update, add or delete operation is made, first it must be checked that a valid connection exists.
+     * If the connection does not exist a valid connection must be made.
      *
      * @return instance for connection
      */
@@ -132,9 +133,9 @@ public class DatabaseConnection {
 
 
     /**
-     * This function is a basic function for making GET requests in database. All repository will call
+     * This function is a basic function for making GET requests in database. All repositories will call
      * this function to get their results.
-     * By GET requests I understand a request which will return some data.
+     * By GET requests we understand a request which will return some data.
      *
      * @param query - is the query which will be executed by database
      * @return result from query
@@ -159,12 +160,12 @@ public class DatabaseConnection {
 
 
     /**
-     * This function is a basic function for making UPDATE requests in database. All repository will call
+     * This function is a basic function for making UPDATE requests in the database. All repositories will call
      * this function to make their updates.
-     * By UPDATE requests I understand a request like add, update or delete something from database.
+     * By UPDATE requests we understand a request like add, update or delete something from the database.
      *
      * @param statement - is the statement which is made in every repository. This is the query which will be executed
-     *                  by database
+     *                  by the database
      * @return void
      */
     public void update(PreparedStatement statement){
@@ -184,11 +185,11 @@ public class DatabaseConnection {
 
 
     /**
-     * This function is a basic function for making UPDATE requests in database. All repository will call
+     * This function is a basic function for making UPDATE requests in the database. All repositories will call
      * this function to make their updates.
-     * By UPDATE requests I understand a request like add, update or delete something from database.
+     * By UPDATE requests we understand a request like add, update or delete something from the database.
      *
-     * @param query - This is the query which will be executed by database
+     * @param query - This is the query which will be executed by the database
      * @return void
      */
     public void update(String query){

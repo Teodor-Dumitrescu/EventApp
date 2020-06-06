@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Operates different types of queries in database.
+ * Operates different types of queries in the database.
  */
 public class EventRepository implements DatabaseManipulation<Event> {
 
@@ -35,7 +35,7 @@ public class EventRepository implements DatabaseManipulation<Event> {
 
     /**
      * Make a list and return all events for one organizer if necessary.
-     * This helps when a organizer is logged in because he must see only his events.
+     * This helps when an organizer is logged in because he must see only his events.
      *
      * @return List
      */
@@ -152,8 +152,8 @@ public class EventRepository implements DatabaseManipulation<Event> {
 
 
     /**
-     *  Function used when must be created a new object from database data.
-     * The function receive a row(resultSet) and split this one into columns resulting
+     *  Function used to create a new object from database data.
+     * The function receives a row(resultSet) and splits this one into columns resulting
      * the data for a new event object.
      *
      * @param resultSet a row with data which will be split into columns
@@ -317,7 +317,7 @@ public class EventRepository implements DatabaseManipulation<Event> {
 
 
     /**
-     * Main function for updating existing event from database.
+     * Main function for updating an existing event from the database.
      *
      * @param event object which will be updated
      */
@@ -402,9 +402,9 @@ public class EventRepository implements DatabaseManipulation<Event> {
 
 
     /**
-     *  Main function for deleting existing event from database.
+     *  Main function for deleting an existing event from the database.
      *
-     * @param event object which will be deleted from database
+     * @param event object which will be deleted from the database
      */
     @Override
     public void delete(Event event){

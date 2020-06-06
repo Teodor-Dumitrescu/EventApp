@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Operates different types of queries in database.
+ * Operates different types of queries in the database.
  */
 public class ClientRepository implements DatabaseManipulation<Client> {
 
@@ -30,8 +30,8 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
     /**
      * Used when a new client account is created or a login is made to check
-     * if the client exists in database or not. The search is made by username, because
-     * username must be unique for every client.
+     * if the client exists in the database or not. The search is made by username, because
+     * the username must be unique for every client.
      *
      * @return boolean
      */
@@ -87,7 +87,7 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
 
     /**
-     *  Return a single client from database when the selector is primary key.
+     *  Return a single client from the database when the selector is the primary key.
      *
      * @return client
      */
@@ -100,8 +100,8 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
 
     /**
-     * Function used when must be created a new object from database data.
-     * The function receive a row(resultSet) and split this one into columns resulting
+     * Function used to create a new object from database data.
+     * The function receives a row(resultSet) and splits this one into columns resulting
      * the data for a new client object.
      *
      * @param resultSet a row with data which will be split into columns
@@ -137,9 +137,9 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
 
     /**
-     *  Main function for inserting new client into database.
+     *  Main function for inserting a new client into the database.
      *
-     * @param client object which will be inserted into database
+     * @param client object which will be inserted into the database
      */
     @Override
     public void insert(Client client) {
@@ -168,7 +168,7 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
 
     /**
-     * Main function for updating existing client from database.
+     * Main function for updating an existing client from the database.
      *
      * @param client object which will be updated
      */
@@ -199,9 +199,9 @@ public class ClientRepository implements DatabaseManipulation<Client> {
 
 
     /**
-     * Main function for deleting existing client from database.
+     * Main function for deleting an existing client from the database.
      *
-     * @param client object which will be deleted from database
+     * @param client object which will be deleted from the database
      */
     @Override
     public void delete(Client client){

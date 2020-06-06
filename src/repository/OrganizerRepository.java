@@ -30,8 +30,8 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
     /**
      * Used when a new organizer account is created or a login is made to check
-     * if the organizer exists in database or not. The search is made by username, because
-     * username must be unique for every organizer.
+     * if the organizer exists in the database or not. The search is made by username, because
+     * the username must be unique for every organizer.
      *
      * @return boolean
      */
@@ -67,7 +67,7 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
 
     /**
-     * Make a list and return all organizers from database if necessary.
+     * Make a list and return all organizers from the database if necessary.
      *
      * @return List
      */
@@ -87,7 +87,7 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
 
     /**
-     * Return a single organizer from database when the selector is primary key.
+     * Return a single organizer from the database when the selector is primary key.
      *
      * @return organizer
      */
@@ -100,8 +100,8 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
 
     /**
-     * Function used when must be created a new object from database data.
-     * The function receive a row(resultSet) and split this one into columns resulting
+     * Function used to create a new object from database data.
+     * The function receives a row(resultSet) and splits this one into columns resulting
      * the data for a new organizer object.
      *
      * @param resultSet a row with data which will be split into columns
@@ -135,9 +135,9 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
 
     /**
-     * Main function for inserting new organizer into database.
+     * Main function for inserting a new organizer into the database.
      *
-     * @param organizer object which will be inserted into database
+     * @param organizer object which will be inserted into the database
      */
     @Override
     public void insert(Organizer organizer) {
@@ -164,7 +164,7 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
 
     /**
-     * Main function for updating existing organizer from database.
+     * Main function for updating an existing organizer from the database.
      *
      * @param organizer object which will be updated
      */
@@ -193,9 +193,9 @@ public class OrganizerRepository implements DatabaseManipulation<Organizer> {
 
 
     /**
-     * Main function for deleting existing organizer from database.
+     * Main function for deleting an existing organizer from the database.
      *
-     * @param organizer object which will be deleted from database
+     * @param organizer object which will be deleted from the database
      */
     @Override
     public void delete(Organizer organizer){
