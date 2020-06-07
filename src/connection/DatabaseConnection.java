@@ -32,13 +32,23 @@ public class DatabaseConnection {
             try {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		//remote testing
+                String databaseName = "KgoRso6laM";
+                String databaseAddress = "remotemysql.com";
+                String databasePort = "3306";
+                String databaseUsername = "KgoRso6laM";
+                String databasePassword = "l8lhFBAtWv";
 
+		/*
                 //set database credentials
                 String databaseName = "test_pao";
                 String databaseAddress = "localhost";
                 String databasePort = "3306";
                 String databasePassword = "";
                 String databaseUsername = "root";
+		*/
+
                 String databaseUrl = "jdbc:mysql://" + databaseAddress + ":" + databasePort + "/" + databaseName;
 
                 connection = DriverManager.getConnection(databaseUrl, databaseUsername, databasePassword);
