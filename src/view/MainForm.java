@@ -251,6 +251,8 @@ public class MainForm extends JFrame{
             updateFrame.setMaximumSize(new Dimension(330,450));
             updateFrame.setVisible(true);
             updateFrame.showOrganizerData(companyService.getSessionOrganizer());
+
+            this.setEnabled(false);
         });
         newOrganizerAccountButton.addActionListener(actionEvent -> {
             UpdateAccountForm updateFrame= new UpdateAccountForm("Create Organizer Account",this);
@@ -269,8 +271,11 @@ public class MainForm extends JFrame{
             updateFrame.setMinimumSize(new Dimension(330,450));
             updateFrame.setMaximumSize(new Dimension(330,450));
             updateFrame.setVisible(true);
+
+            this.setEnabled(false);
         });
         updateAccountClientButton.addActionListener(actionEvent -> {
+
             UpdateAccountForm updateFrame = new UpdateAccountForm("Update Client Account",this);
 
             //hide fields
@@ -286,6 +291,7 @@ public class MainForm extends JFrame{
             updateFrame.setVisible(true);
             updateFrame.showClientData(companyService.getSessionClient());
 
+            this.setEnabled(false);
         });
         newClientAccountButton.addActionListener(actionEvent -> {
             UpdateAccountForm updateFrame = new UpdateAccountForm("Create Client Account",this);
@@ -300,6 +306,9 @@ public class MainForm extends JFrame{
             updateFrame.setMinimumSize(new Dimension(330,450));
             updateFrame.setMaximumSize(new Dimension(330,450));
             updateFrame.setVisible(true);
+
+            this.setEnabled(false);
+
         });
         viewSoldTicketsButton.addActionListener(actionEvent -> {
             TicketsForm ticketsFrame = new TicketsForm("Tickets",this);
@@ -308,6 +317,8 @@ public class MainForm extends JFrame{
             ticketsFrame.setMaximumSize(new Dimension(850,500));
             ticketsFrame.setVisible(true);
             infoMessageLabel.setVisible(false);
+
+            this.setEnabled(false);
         });
         viewTicketsButton.addActionListener(actionEvent -> {
             TicketsForm ticketsFrame = new TicketsForm("Tickets",this);
@@ -316,6 +327,8 @@ public class MainForm extends JFrame{
             ticketsFrame.setMaximumSize(new Dimension(850,500));
             ticketsFrame.setVisible(true);
             infoMessageLabel.setVisible(false);
+
+            this.setEnabled(false);
         });
         organizerLogoutButton.addActionListener(actionEvent -> {
             organizerLogout();
@@ -433,6 +446,8 @@ public class MainForm extends JFrame{
             addEventForm.getUpdateEventButton().setVisible(false);
             addEventForm.setVisible(true);
             infoMessageLabel.setVisible(false);
+
+            this.setEnabled(false);
         });
 
         resetFiltersButton.addActionListener(actionEvent -> {
@@ -670,7 +685,7 @@ public class MainForm extends JFrame{
             infoMessageLabel.setVisible(false);
 
             //show the form only if one event is selected
-            AddEventForm addEventForm = new AddEventForm("Add Event",this);
+            AddEventForm addEventForm = new AddEventForm("Update Event",this);
             addEventForm.setMinimumSize(new Dimension(330,450));
             addEventForm.setMaximumSize(new Dimension(330,450));
             addEventForm.getAddEventButton().setVisible(false);
@@ -684,6 +699,7 @@ public class MainForm extends JFrame{
 
             addEventForm.showData(companyService.getEventService().get(eventId,eventType));
 
+            this.setEnabled(false);
         });
 
 

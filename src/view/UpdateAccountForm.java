@@ -8,6 +8,8 @@ import general.Event;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class UpdateAccountForm extends JFrame {
@@ -109,6 +111,8 @@ public class UpdateAccountForm extends JFrame {
                 mainForm.getInfoMessageLabel().setText("Client account created");
                 mainForm.getCompanyService().getAuditService().addLogMessage("Added client " + client.getUsername());
                 this.setVisible(false);
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
             }
 
         });
@@ -142,6 +146,8 @@ public class UpdateAccountForm extends JFrame {
                 mainForm.getInfoMessageLabel().setText("Organizer account created");
                 mainForm.getCompanyService().getAuditService().addLogMessage("Added organizer " + organizer.getUsername());
                 this.setVisible(false);
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
             }
 
         });
@@ -177,6 +183,8 @@ public class UpdateAccountForm extends JFrame {
                     this.setVisible(false);
                     mainForm.getInfoMessageLabel().setText("Account updated !");
                     mainForm.getInfoMessageLabel().setVisible(true);
+                    mainForm.setEnabled(true);
+                    mainForm.requestFocus();
                 }
             }
             else { //update for organizer
@@ -204,6 +212,8 @@ public class UpdateAccountForm extends JFrame {
                     this.setVisible(false);
                     mainForm.getInfoMessageLabel().setText("Account updated !");
                     mainForm.getInfoMessageLabel().setVisible(true);
+                    mainForm.setEnabled(true);
+                    mainForm.requestFocus();
                 }
             }
 
@@ -239,6 +249,8 @@ public class UpdateAccountForm extends JFrame {
 
                 mainForm.getInfoMessageLabel().setText("Account deleted !");
                 mainForm.getInfoMessageLabel().setVisible(true);
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
             }
             else{ //delete organizer account
 
@@ -289,9 +301,18 @@ public class UpdateAccountForm extends JFrame {
 
                 mainForm.getInfoMessageLabel().setText("Account deleted !");
                 mainForm.getInfoMessageLabel().setVisible(true);
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
             }
 
+        });
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
+            }
         });
     }
 
