@@ -3,6 +3,9 @@ package services;
 import domain.Client;
 import domain.Organizer;
 
+/**
+ * Is main class which links front-end by back-end functionality.
+ */
 public class CompanyService {
 
     private static CompanyService companyServiceInstance = null;
