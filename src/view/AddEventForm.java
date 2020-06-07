@@ -5,6 +5,8 @@ import general.Event;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AddEventForm extends JFrame {
     private JSpinner priceSpinner;
@@ -49,6 +51,8 @@ public class AddEventForm extends JFrame {
 
     public AddEventForm(String title, MainForm mainForm) throws HeadlessException {
         super(title);
+
+        //make initial setup
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         hideFields(1);
         hideFields(2);
@@ -63,7 +67,8 @@ public class AddEventForm extends JFrame {
 
             dateErrorLabel.setVisible(false);
 
-            if(checkFields()){
+            if(checkFields()){ //an event is added only all fields are correctly completed
+
                 int organizerId = mainForm.getCompanyService().getSessionOrganizer().getOrganizerId();
                 String tmp = priceSpinner.getValue().toString();
                 float price = Float.parseFloat(tmp);
@@ -112,7 +117,8 @@ public class AddEventForm extends JFrame {
 
                 this.setVisible(false);
                 mainForm.loadOrganizerEvents();
-
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
             }
 
         });
@@ -247,7 +253,17 @@ public class AddEventForm extends JFrame {
                 this.setVisible(false);
                 mainForm.loadOrganizerEvents();
                 mainForm.setEventLabels();
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
 
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mainForm.setEnabled(true);
+                mainForm.requestFocus();
             }
         });
     }
@@ -297,6 +313,10 @@ public class AddEventForm extends JFrame {
             dateErrorLabel.setVisible(true);
             dateErrorLabel.setText("Insert a correct date");
         }
+        else{
+            dateLabel.setForeground(Color.black);
+            dateErrorLabel.setVisible(false);
+        }
 
         //check music genres types
         String optionSelected = typeComboBox.getItemAt(typeComboBox.getSelectedIndex()).toString();
@@ -307,6 +327,7 @@ public class AddEventForm extends JFrame {
                     hideFields(1);
                     hideFields(2);
                     hideFields(3);
+                    isError = true;
                     break;
                 case "Music":
                     showFields(1);
