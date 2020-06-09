@@ -760,6 +760,7 @@ public class MainForm extends JFrame{
                 companyService.getTicketService().add(ticket);
                 companyService.getAuditService().addLogMessage("Sold Ticket " + ticketIdentifier);
                 infoMessageLabel.setText("Ticket bought");
+                infoMessageLabel.setVisible(true);
 
                 //eliminate one value from event available tickets
                 event.setAvailableTicketsNumber(event.getAvailableTicketsNumber() - 1);
