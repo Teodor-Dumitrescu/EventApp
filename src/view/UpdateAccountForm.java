@@ -74,11 +74,14 @@ public class UpdateAccountForm extends JFrame {
             }
         }
 
-
         ageErrorLabel.setVisible(false);
 
+
+        /*A function that gives functionality to the button createClient.
+        To create a new client account the username must be unique and all fields must be filled in. */
         createClientAccountButton.addActionListener(actionEvent -> {
 
+            //a new client account is added only all fields are correctly completed
             if(checkFields(true)){
 
                 String username = usernameTextField.getText();
@@ -103,6 +106,7 @@ public class UpdateAccountForm extends JFrame {
                 //get address id
                 int addressId = mainForm.getCompanyService().getAddressService().getLastIndex();
 
+                //create the client object and add the client in database
                 Client client = new Client(username,password,nameTextField.getText(),age,gender,addressId);
 
                 mainForm.getCompanyService().getClientService().add(client);
@@ -110,12 +114,18 @@ public class UpdateAccountForm extends JFrame {
                 mainForm.getInfoMessageLabel().setVisible(true);
                 mainForm.getInfoMessageLabel().setText("Client account created");
                 mainForm.getCompanyService().getAuditService().addLogMessage("Added client " + client.getUsername());
+
+                //hide current form and give access to the main form
                 this.setVisible(false);
                 mainForm.setEnabled(true);
                 mainForm.requestFocus();
             }
 
         });
+
+
+        /*A function that gives functionality to the button createOrganizer.
+        To create a new client organizer the username must be unique and all fields must be filled in. */
         createOrganizerAccountButton.addActionListener(actionEvent -> {
 
             if(checkFields(false)){
@@ -139,12 +149,15 @@ public class UpdateAccountForm extends JFrame {
                 //get address id
                 int addressId = mainForm.getCompanyService().getAddressService().getLastIndex();
 
+                //create new organizer object and add in database
                 Organizer organizer = new Organizer(username,password,nameTextField.getText(),addressId);
                 mainForm.getCompanyService().getOrganizerService().add(organizer);
 
                 mainForm.getInfoMessageLabel().setVisible(true);
                 mainForm.getInfoMessageLabel().setText("Organizer account created");
                 mainForm.getCompanyService().getAuditService().addLogMessage("Added organizer " + organizer.getUsername());
+
+                //hide current form and give access to the main form
                 this.setVisible(false);
                 mainForm.setEnabled(true);
                 mainForm.requestFocus();
@@ -152,12 +165,17 @@ public class UpdateAccountForm extends JFrame {
 
         });
 
+
+        /*A function that gives functionality to the button updateAccount.
+        To update an account all fields must be filled in. */
         updateAccountButton.addActionListener(actionEvent -> {
 
             if(sessionClient != null) { //update for client
 
-                //check new data
+                //check new data to see if all fields are correctly completed
                 if (checkFields(true)) {
+
+                    //get data from form and update the current session client
                     String tmp = ageSpinner.getValue().toString();
                     int age = Integer.parseInt(tmp);
 
@@ -166,14 +184,17 @@ public class UpdateAccountForm extends JFrame {
                     sessionClient.setAge(age);
                     sessionClient.setGender(genderComboBox.getItemAt(genderComboBox.getSelectedIndex()).toString());
 
+                    //get the current session client address
                     Address address = mainForm.getCompanyService().getAddressService().
                             get(mainForm.getCompanyService().getSessionClient().getAddressId());
 
+                    //update the address
                     address.setCity(cityTextField.getText());
                     address.setCountry(countryTextField.getText());
                     address.setStreet(streetTextField.getText());
                     address.setPhoneNumber(phoneTextField.getText());
 
+                    //make updates
                     mainForm.getCompanyService().getClientService().update(sessionClient);
                     mainForm.getCompanyService().getAddressService().update(address);
 
@@ -183,26 +204,33 @@ public class UpdateAccountForm extends JFrame {
                     this.setVisible(false);
                     mainForm.getInfoMessageLabel().setText("Account updated !");
                     mainForm.getInfoMessageLabel().setVisible(true);
+
+                    //give access to the main form
                     mainForm.setEnabled(true);
                     mainForm.requestFocus();
                 }
             }
             else { //update for organizer
 
+                //check new data to see if all fields are correctly completed
                 if (checkFields(false)) {
 
+                    //get data from form and update the current session organizer
                     assert sessionOrganizer != null;
                     sessionOrganizer.setPassword(new String(passwordField.getPassword()));
                     sessionOrganizer.setName(nameTextField.getText());
 
+                    //get the current session organizer address
                     Address address = mainForm.getCompanyService().getAddressService().
                             get(mainForm.getCompanyService().getSessionOrganizer().getAddressId());
 
+                    //update the address
                     address.setCity(cityTextField.getText());
                     address.setCountry(countryTextField.getText());
                     address.setStreet(streetTextField.getText());
                     address.setPhoneNumber(phoneTextField.getText());
 
+                    //make updates
                     mainForm.getCompanyService().getOrganizerService().update(sessionOrganizer);
                     mainForm.getCompanyService().getAddressService().update(address);
 
@@ -212,16 +240,22 @@ public class UpdateAccountForm extends JFrame {
                     this.setVisible(false);
                     mainForm.getInfoMessageLabel().setText("Account updated !");
                     mainForm.getInfoMessageLabel().setVisible(true);
+
+                    //give access to the main form
                     mainForm.setEnabled(true);
                     mainForm.requestFocus();
                 }
             }
 
         });
+
+
+         /*A function that gives functionality to the button deleteAccount.*/
         deleteAccountButton.addActionListener(actionEvent -> {
 
             if(sessionClient != null){ //delete client account
                 //if I delete a client account I delete his tickets only if no organizer exist for tickets
+                //(because and organizer must see all his sold tickets)
 
                 //TODO eventual sa sterg si ticketele atunci cand sterg un client => trebuie verificat sa nu mai fie
                 // nici un organizator caruia sa ii apara ca sold tickets
@@ -249,6 +283,8 @@ public class UpdateAccountForm extends JFrame {
 
                 mainForm.getInfoMessageLabel().setText("Account deleted !");
                 mainForm.getInfoMessageLabel().setVisible(true);
+
+                //give access to the main form
                 mainForm.setEnabled(true);
                 mainForm.requestFocus();
             }
@@ -301,12 +337,17 @@ public class UpdateAccountForm extends JFrame {
 
                 mainForm.getInfoMessageLabel().setText("Account deleted !");
                 mainForm.getInfoMessageLabel().setVisible(true);
+
+                //give access to the main form
                 mainForm.setEnabled(true);
                 mainForm.requestFocus();
             }
 
         });
 
+
+         /*The addAccount form can be closed from the X button. In that case changes will not be considered and
+        main form will receive access*/
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -316,6 +357,13 @@ public class UpdateAccountForm extends JFrame {
         });
     }
 
+
+    /**
+     * A function used to show data about session client when an update is wanted. This function will help you fill out
+     * the update form.
+     *
+     * @param client the session client for which the data is displayed
+     */
     public void showClientData(Client client){
         if(client != null) {
             Address address = mainForm.getCompanyService().getAddressService().
@@ -324,6 +372,13 @@ public class UpdateAccountForm extends JFrame {
         }
     }
 
+
+    /**
+     * A function used to show data about session organizer when an update is wanted. This function will help you fill out
+     * the update form.
+     *
+     * @param organizer the session organizer for which the data is displayed
+     */
     public void showOrganizerData(Organizer organizer){
         if(organizer != null) {
             Address address = mainForm.getCompanyService().getAddressService().
@@ -332,6 +387,11 @@ public class UpdateAccountForm extends JFrame {
         }
     }
 
+
+    /**
+     * This function is a helper for showClientData() and showOrganizerData() function and sets the values
+     * in the update form.
+     */
     private void showData(boolean isClient, String username, String password, String name, int age, String gender, Address address) {
             usernameTextField.setText(username);
             passwordField.setText(password);
@@ -341,12 +401,20 @@ public class UpdateAccountForm extends JFrame {
             streetTextField.setText(address.getStreet());
             phoneTextField.setText(address.getPhoneNumber());
 
+            //for the client there are two more specific fields
             if(isClient){
                 ageSpinner.setValue(age);
                 genderComboBox.setSelectedItem(gender);
             }
     }
 
+
+    /**
+     * In this function it is checked if the fields are filled.
+     * For the age field when a client is added or updated it is also checked if age is in [14,150].
+     *
+     * @return boolean
+     */
     private boolean checkFields(boolean isClient){
 
         fixedUsername.setVisible(false);
@@ -401,6 +469,13 @@ public class UpdateAccountForm extends JFrame {
         return !isError;
     }
 
+
+    /**
+     * This function is a helper for checkFields() function. If a field is not filled
+     * label is set with a red color.
+     *
+     * @return boolean
+     */
     private boolean isErrorCheck(boolean isError, JTextField textField, JLabel label) {
 
         if(textField.getText().isEmpty()){
@@ -413,6 +488,7 @@ public class UpdateAccountForm extends JFrame {
 
         return isError;
     }
+
 
     public JSpinner getAgeSpinner() {
         return ageSpinner;
@@ -445,4 +521,5 @@ public class UpdateAccountForm extends JFrame {
     public JLabel getAgeLabel() {
         return ageLabel;
     }
+
 }
