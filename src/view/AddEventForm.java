@@ -63,6 +63,8 @@ public class AddEventForm extends JFrame {
         this.mainForm = mainForm;
         dateErrorLabel.setVisible(false);
 
+        /* When an event is added a new form is opened. In that form all the fields must be filled in and after that the
+        event can be added. */
         addEventButton.addActionListener(actionEvent -> {
 
             dateErrorLabel.setVisible(false);
@@ -88,6 +90,8 @@ public class AddEventForm extends JFrame {
                 //get inserted address id
                 int addressId = mainForm.getCompanyService().getAddressService().getLastIndex();
                 Event event = null;
+
+                //insert the right type of event
                 switch (type){
                     case "Music":
                         event = new Music(organizerId,1,nameTextField.getText(),price,availableTicketsNumber,
@@ -122,6 +126,9 @@ public class AddEventForm extends JFrame {
             }
 
         });
+
+
+        /*Make some changes (show or hide various fields) in form depending on the type of event*/
         typeComboBox.addActionListener(actionEvent -> {
             String type = typeComboBox.getItemAt(typeComboBox.getSelectedIndex()).toString();
 
@@ -149,11 +156,17 @@ public class AddEventForm extends JFrame {
             }
 
         });
+
+        /* When an event is updated a new form is opened. In that form all fields except username can be changed.
+        When the changes are ready the event can be updated. */
         updateEventButton.addActionListener(actionEvent -> {
 
             dateErrorLabel.setVisible(false);
 
+            //an event is updated only all fields are correctly completed
             if(checkFields()){
+
+                //get data from form
                 String tmp = priceSpinner.getValue().toString();
                 float price = Float.parseFloat(tmp);
 
@@ -171,6 +184,7 @@ public class AddEventForm extends JFrame {
 
                 this.sessionEvent.getLocation().setDate(date);
 
+                //first update the event address
                 Address address =  mainForm.getCompanyService().getAddressService().get(this.sessionEvent.getLocation().getAddressId());
                 address.setCity(cityTextField.getText());
                 address.setCountry(countryTextField.getText());
@@ -178,9 +192,11 @@ public class AddEventForm extends JFrame {
                 address.setPhoneNumber(phoneTextField.getText());
                 mainForm.getCompanyService().getAddressService().update(address);
 
-
+                //get type of the event
                 String type = typeComboBox.getItemAt(typeComboBox.getSelectedIndex()).toString();
                 boolean isUpdated = false;
+
+                //update the event only if the event type was not changed
                 switch (type){
                     case "Music":
                         if(this.sessionEvent.getClass() == Music.class) {
@@ -211,7 +227,7 @@ public class AddEventForm extends JFrame {
                         break;
                 }
 
-                //organizer has changed the type of event
+                //if organizer has changed the type of event then a new event will be created using the form data
                 Event aux = this.sessionEvent;
                 if(!isUpdated){
                     switch (type){
@@ -250,6 +266,7 @@ public class AddEventForm extends JFrame {
 
 
 
+                //hide the current form and give access to the main form
                 this.setVisible(false);
                 mainForm.loadOrganizerEvents();
                 mainForm.setEventLabels();
@@ -259,6 +276,8 @@ public class AddEventForm extends JFrame {
             }
         });
 
+        /*The addEvent form can be closed from the X button. In that case changes will not be considered and
+        main form will receive access*/
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -268,6 +287,13 @@ public class AddEventForm extends JFrame {
         });
     }
 
+
+    /**
+     * In this function it is checked if the fields are filled.
+     * For the price and the number of tickets, it is also checked if they are positive.
+     *
+     * @return boolean
+     */
     private boolean checkFields(){
 
         boolean isError = false;
@@ -364,6 +390,13 @@ public class AddEventForm extends JFrame {
         return !isError;
     }
 
+
+    /**
+     * This function is a helper for checkFields() function. If a field is not filled
+     * label is set with a red color.
+     *
+     * @return boolean
+     */
     private boolean isErrorCheck(boolean isError, JTextField textField, JLabel label) {
 
         if(textField.getText().isEmpty()){
@@ -377,6 +410,12 @@ public class AddEventForm extends JFrame {
         return isError;
     }
 
+
+    /**
+     * This function is used to hide specific information about a certain event.
+     *
+     * @param option represents the type of event (1 for music, 2 for sport, 3 for cultural)
+     */
     private void hideFields(int option){
         switch (option){
             case 1:
@@ -400,6 +439,12 @@ public class AddEventForm extends JFrame {
         }
     }
 
+
+    /**
+     * This function is used to show specific information about a certain event.
+     *
+     * @param option represents the type of event (1 for music, 2 for sport, 3 for cultural)
+     */
     private void showFields(int option){
         switch (option){
             case 1:
@@ -423,9 +468,18 @@ public class AddEventForm extends JFrame {
         }
     }
 
+
+    /**
+     * This function is used to fill in the form fields if an event is to be updated.
+     *
+     * @param event the event for which the data is displayed
+     */
     public void showData(Event event) {
+
+        //session event will be the event you are working on
         this.sessionEvent = event;
 
+        //get data about event and fill in the form
         nameTextField.setText(event.getName());
         priceSpinner.setValue(event.getStandardTicketPrice());
 
@@ -436,12 +490,14 @@ public class AddEventForm extends JFrame {
 
         ticketsSpinner.setValue(event.getAvailableTicketsNumber());
 
+        //get the address data and fill in the form
         Address address =  mainForm.getCompanyService().getAddressService().get(this.sessionEvent.getLocation().getAddressId());
         cityTextField.setText(address.getCity());
         countryTextField.setText(address.getCountry());
         streetTextField.setText(address.getStreet());
         phoneTextField.setText(address.getPhoneNumber());
 
+        //get the event type and fill in the right fields
         if(event.getClass() == Music.class){
             typeComboBox.setSelectedItem("Music");
             showFields(1);
@@ -459,6 +515,7 @@ public class AddEventForm extends JFrame {
             hideFields(3);
             homeTextField.setText(((Sport) event).getHome());
             guestTextField.setText(((Sport) event).getGuest());
+            return;
         }
 
         if(event.getClass() == Cultural.class){
