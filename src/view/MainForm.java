@@ -836,8 +836,14 @@ public class MainForm extends JFrame{
                 super.keyReleased(e);
                 infoMessageLabel.setVisible(false);
 
-                //the search is made using all events from database
-                loadAllEvents();
+                //the search is made using all events from database if a a client is logged in or is guest mode
+                //or using only organizer events if an organizer is logged in
+                if(companyService.getSessionOrganizer() != null){ //an organizer is logged in
+                    loadOrganizerEvents();
+                }
+                else {
+                    loadAllEvents();
+                }
 
                 //check if is a search value
                 String searchValue = searchEventTextField.getText().toLowerCase();
