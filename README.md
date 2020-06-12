@@ -1,7 +1,7 @@
 # EventApp
 Project done by me and my classmate Marius Dariescu for our Software Development Methods course. (In progress...)
 
-## Extracted from section 7 from **Tehnical Description**
+## Extracted from section 7 from Tehnical Description from Wiki
 
 ### **7. Launch the application**
 
