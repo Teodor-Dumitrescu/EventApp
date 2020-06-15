@@ -33,22 +33,33 @@ public class DatabaseConnection {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
 		
-		//remote testing
+				/*
+                //remote testing 1
                 String databaseName = "KgoRso6laM";
                 String databaseAddress = "remotemysql.com";
                 String databasePort = "3306";
                 String databaseUsername = "KgoRso6laM";
                 String databasePassword = "l8lhFBAtWv";
+                */
 
-		/*
+                
+                //remote testing 2
+                String databaseName = "sql7347239";
+                String databaseAddress = "sql7.freesqldatabase.com";
+                String databasePort = "3306";
+                String databaseUsername = "sql7347239";
+                String databasePassword = "ASDmrLWXqp";
+
+                 /*
+
                 //set database credentials
-                String databaseName = "test_pao";
+                String databaseName = "database_mds";
                 String databaseAddress = "localhost";
                 String databasePort = "3306";
                 String databasePassword = "";
                 String databaseUsername = "root";
-		*/
 
+                */
                 String databaseUrl = "jdbc:mysql://" + databaseAddress + ":" + databasePort + "/" + databaseName;
 
                 connection = DriverManager.getConnection(databaseUrl, databaseUsername, databasePassword);
